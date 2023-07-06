@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Didact</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // const element = <h1 title="foo">Hello<h1/>
+      // const container = document.getElementById("root")
+      // ReactDOM.render(element, container)
+
+      const element = {
+        type: "h1", // tagName, for later is going to be the component
+        props: {
+          // all the keys and values from the JSX attributes
+          title: "foo",
+          children: "Hello Nachiel", // An array of elements, or string
+        },
+      };
+      const container = document.getElementById("root");
+      // create the element
+      const node = document.createElement(element.type);
+      // set props
+      node["title"] = element.props.title;
+      // build children
+      const text = document.createTextNode("");
+      text["nodeValue"] = element.props.children;
+      node.appendChild(text);
+
+      // append to container
+      container.appendChild(node);
+    </script>
+  </body>
+</html>
