@@ -16,6 +16,7 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <!-- Your custom script here -->
 
+    <!--Work from here-->
     <script type="text/babel" data-presets="env,react">
       function createTextElement(text) {
         return {
@@ -28,6 +29,10 @@
       }
 
       function createElement(type, props, ...children) {
+        const isFunctionComponent = type instanceof Function;
+        if (isFunctionComponent) {
+          return type(props);
+        }
         return {
           type,
           props: {
@@ -70,14 +75,16 @@
       // babel to transform jsx into js
       // telling babel to use our creatElement function
       /** @jsx Didact.createElement */
-      const element = (
-        <div id="foo">
-          <h1>Hello Juan</h1>
-          <b />
-        </div>
-      );
+      function App(props) {
+        return <Hello greeting={props.name} />;
+      }
+
+      const Hello = ({ greeting }) => <h1>Hello, {greeting}</h1>;
+      // const element = <App name="Nachiel" />;
+      // const element = Didact.createElement(App, { name: "Nachiel" });
+      // const element = <App name={"Juan"}></App>;
       const container = document.getElementById("root");
-      Didact.render(element, container);
+      Didact.render(<App name={"Juan"} />, container);
     </script>
   </body>
 </html>
